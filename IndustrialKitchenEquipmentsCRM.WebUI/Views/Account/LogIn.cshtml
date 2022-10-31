@@ -1,0 +1,28 @@
+﻿@model CLoginDto
+@{
+	ViewData["Title"] = "CreateUser";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-controller="account" asp-action="login" method="post" class="p-3 w-75  mx-auto shadow" style="margin-top: 15%">
+	<div class="mb-3">
+		<label for="formGroupExampleInput" class="form-label">Email</label>
+		<input type="text" class="form-control" asp-for="Email" placeholder="Mail adresinizi girin">
+	</div>
+
+	<div class="mb-3">
+		<label for="formGroupExampleInput2" class="form-label">Şifre</label>
+		<input type="password" class="form-control" asp-for="Password" placeholder="Şifrenizi girin">
+	</div>
+
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" asp-for="RememberMe" >
+		<label class="form-check-label" for="flexCheckDefault">
+			Beni Hatırla
+		</label>
+	</div>
+	<div class="mb-3">
+		<button type="submit" class="btn btn-primary">Giriş Yap</button>
+		<a asp-action="createuser" class="btn btn-outline-primary">Kayıt Ol</a>
+	</div>
+</form>
