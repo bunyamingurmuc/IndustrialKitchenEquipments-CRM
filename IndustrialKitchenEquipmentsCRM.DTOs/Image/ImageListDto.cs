@@ -12,5 +12,6 @@ namespace IndustrialKitchenEquipmentsCRM.DTOs.Image
     {
         public string Url { get; set; }
         public int? StockId { get; set; }
+        public StockListDto Stock { get; set; }
     }
 }

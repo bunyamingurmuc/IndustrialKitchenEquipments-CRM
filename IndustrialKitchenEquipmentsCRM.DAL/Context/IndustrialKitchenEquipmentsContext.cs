@@ -30,7 +30,7 @@ namespace IndustrialKitchenEquipmentsCRM.DAL.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-
+            builder.Entity<CardItem>().Navigation(x => x.Stock).AutoInclude();
             builder.ApplyConfiguration(new StockConfigurations());
             base.OnModelCreating(builder);
 

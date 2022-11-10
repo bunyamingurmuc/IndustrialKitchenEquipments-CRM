@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
+using IndustrialKitchenEquipmentsCRM.Common;
 using IndustrialKitchenEquipmentsCRM.DAL.UOW;
 using IndustrialKitchenEquipmentsCRM.DTOs.Image;
 using IndustrialKitchenEquipmentsCRM.Entities.Image;
+using Microsoft.AspNetCore.Http;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
@@ -20,6 +22,28 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             _createDtoValidator = createDtoValidator;
             _updateDtoValidator = updateDtoValidator;
             _uow = uow;
+        }
+
+        public IResponse CreateImage(FileStream fileStream, IFormFile formFile)
+        {
+            formFile.CopyTo(fileStream);
+            fileStream.Flush();
+            return new Response(ResponseType.Success,$"//Upload//+{formFile.FileName}");
+
+        }
+
+        public IResponse DeleteImage(string filePath)
+        {
+            File.Delete(filePath);
+            return new Response(ResponseType.Success);
+
+        }
+
+        public IResponse updateImage(string oldFilePath, FileStream fileStream, IFormFile formFile)
+        {
+            DeleteImage(oldFilePath);
+            CreateImage(fileStream, formFile);
+            return new Response(ResponseType.Success);
         }
     }
 }

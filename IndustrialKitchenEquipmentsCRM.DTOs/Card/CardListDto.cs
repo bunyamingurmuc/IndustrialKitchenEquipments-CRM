@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IndustrialKitchenEquipmentsCRM.Common.Enums;
+using IndustrialKitchenEquipmentsCRM.DTOs.Customer;
 using IndustrialKitchenEquipmentsCRM.DTOs.Interfaces;
 using IndustrialKitchenEquipmentsCRM.DTOs.User;
 using IndustrialKitchenEquipmentsCRM.Entities.Auth;
@@ -21,6 +22,7 @@ namespace IndustrialKitchenEquipmentsCRM.DTOs.Card
         public List<CardItemListDto> CardItems { get; set; }
         public int TotalPrice { get; set; }
         public int? CustomerId { get; set; }
+        public CustomerListDto? Customer { get; set; }
         public CurrencyUnit CurrencyUnit { get; set; }
 
     }

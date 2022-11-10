@@ -175,7 +175,7 @@ namespace IndustrialKitchenEquipmentsCRM.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CardId")
+                    b.Property<int?>("CardId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -447,9 +447,7 @@ namespace IndustrialKitchenEquipmentsCRM.DAL.Migrations
                 {
                     b.HasOne("IndustrialKitchenEquipmentsCRM.Entities.Card.Card", "Card")
                         .WithMany("CardItems")
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CardId");
 
                     b.HasOne("IndustrialKitchenEquipmentsCRM.Entities.Stock.Stock", "Stock")
                         .WithMany("CardItems")

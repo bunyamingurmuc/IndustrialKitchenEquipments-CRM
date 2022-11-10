@@ -1,11 +1,10 @@
 ﻿using IndustrialKitchenEquipmentsCRM.API.Extension;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
-using IndustrialKitchenEquipmentsCRM.BLL.Services;
 using IndustrialKitchenEquipmentsCRM.DTOs.Card;
-using IndustrialKitchenEquipmentsCRM.Entities.Card;
+using IronPdf;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Wkhtmltopdf.NetCore;
 
 namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
@@ -14,10 +13,13 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
     public class CardController : ControllerBase
     {
         private readonly ICardService _cardService;
+        private readonly IGeneratePdf _generatePdf;
 
-        public CardController(ICardService cardService)
+
+        public CardController(ICardService cardService, IGeneratePdf generatePdf)
         {
             _cardService = cardService;
+            _generatePdf = generatePdf;
         }
         [Authorize]
         [HttpGet]
@@ -33,6 +35,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         {
             var response = await _cardService.GetByIdAsync<CardListDto>(id);
             return this.ResponseStatusWithData(response);
+           
 
         }
         [HttpPost]
@@ -58,6 +61,13 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
             var response = await _cardService.RemoveAsync(id);
             return this.ResponseStatusWithData(response);
 
+        }
+        [HttpPost]
+        [Route("/[controller]/[action]")]
+        public async Task<IActionResult> CreatePdf()
+        {
+       
+            return await _generatePdf.GetPdf("Denemee");
         }
 
     }

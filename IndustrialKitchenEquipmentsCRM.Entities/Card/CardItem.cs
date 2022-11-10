@@ -9,7 +9,7 @@ namespace IndustrialKitchenEquipmentsCRM.Entities.Card
         public int Discount { get; set; }
         public int? StockId { get; set; }
         public Stock.Stock? Stock { get; set; }
-        public int CardId { get; set; }
-        public Card Card { get; set; }
+        public int? CardId { get; set; }
+        public Card? Card { get; set; }
     }
 }

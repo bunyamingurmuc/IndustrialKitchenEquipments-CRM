@@ -1,7 +1,6 @@
 ﻿using IndustrialKitchenEquipmentsCRM.API.Extension;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
-using IndustrialKitchenEquipmentsCRM.BLL.Services;
-using IndustrialKitchenEquipmentsCRM.DTOs.Card;
+using IndustrialKitchenEquipmentsCRM.DTOs.ControllerDtos;
 using IndustrialKitchenEquipmentsCRM.DTOs.Image;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +11,14 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
     public class ImageController : ControllerBase
     {
         private readonly IImageService _imageService;
+        public static IWebHostEnvironment _environment;
 
-        public ImageController(IImageService imageService)
+        public ImageController(IImageService imageService, IWebHostEnvironment environment)
         {
             _imageService = imageService;
+            _environment = environment;
         }
+
         [HttpGet]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> ImageGetAll()
@@ -24,6 +26,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
             var images = await _imageService.GetAllAsync();
             return this.ResponseStatusWithData(images);
         }
+
         [HttpGet]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> ImageGetById(int id)
@@ -32,6 +35,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
             return this.ResponseStatusWithData(response);
 
         }
+
         [HttpPost]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> ImageCreate(ImageCreateDto dto)
@@ -39,7 +43,9 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
             var response = await _imageService.CreateAsync(dto);
             return this.ResponseStatusWithData(response);
 
+
         }
+
         [HttpPut]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> ImageUpdate(ImageListDto dto)
@@ -48,6 +54,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
             return this.ResponseStatusWithData(response);
 
         }
+
         [HttpDelete]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> ImageDelete(int id)
@@ -56,5 +63,27 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
             return this.ResponseStatusWithData(response);
 
         }
+
+        [HttpPost]
+        [Route("/[controller]/[action]")]
+        public ActionResult ImageUpload([FromForm] CImageUploadDto dto)
+        {
+            if (dto.File.Length > 0)
+            {
+                string path = _environment.WebRootPath + "\\Upload\\";
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(_environment.WebRootPath + "\\Upload\\");
+                }
+
+                FileStream fileStream =
+                    System.IO.File.Create(_environment.WebRootPath + "\\Upload\\" + dto.File.FileName);
+                var response = _imageService.CreateImage(fileStream, dto.File);
+                return this.ResponseStatusWithData(response);
+            }
+
+            return BadRequest();
+        }
+
     }
 }

@@ -14,6 +14,7 @@ using IndustrialKitchenEquipmentsCRM.Entities.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Wkhtmltopdf.NetCore;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.DependencyResolvers
 {
@@ -45,6 +46,8 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.DependencyResolvers
 
 
             });
+            services.AddWkhtmltopdf("wkhtmltopdf");
+          
             services.AddScoped<IUOW, UOW>();
             services.AddScoped<IStockService, StockService>();
             services.AddScoped<ICategoryService, CategoryService>();

@@ -13,7 +13,7 @@ namespace IndustrialKitchenEquipmentsCRM.Entities.Card
         }
         public int? AppUserId { get; set; }
         public AppUser? AppUser { get; set; }
-        public List<CardItem>? CardItems { get; set; }
+        public List<CardItem> CardItems { get; set; }
         public int TotalPrice { get; set; }
         public CurrencyUnit CurrencyUnit { get; set; }
         public int? CustomerId { get; set; }
