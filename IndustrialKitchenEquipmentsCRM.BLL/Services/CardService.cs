@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using IndustrialKitchenEquipmentsCRM.BLL.Helper;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.Common;
 using IndustrialKitchenEquipmentsCRM.DAL.UOW;
 using IndustrialKitchenEquipmentsCRM.DTOs.Card;
 using IndustrialKitchenEquipmentsCRM.Entities.Card;
-using System.Text;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {

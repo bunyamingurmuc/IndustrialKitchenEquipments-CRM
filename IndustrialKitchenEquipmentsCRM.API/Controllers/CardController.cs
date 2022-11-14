@@ -1,7 +1,6 @@
 ﻿using IndustrialKitchenEquipmentsCRM.API.Extension;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.DTOs.Card;
-using IronPdf;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wkhtmltopdf.NetCore;
@@ -66,7 +65,12 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<IActionResult> CreatePdf()
         {
-       
+            var myConvertOptions = new MyConvertOptions
+            {
+                FooterCenter = "\" Sayfa [page] / [topage] \"",
+                HeaderHtml = "Views/dene.html",
+            };
+            _generatePdf.SetConvertOptions(myConvertOptions);
             return await _generatePdf.GetPdf("Denemee");
         }
 
