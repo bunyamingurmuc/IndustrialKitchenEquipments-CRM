@@ -13,7 +13,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors]
-    [Authorize]
+    //[Authorize]
     public class CategoryController : ControllerBase
     {
         ICategoryService _categoryService;

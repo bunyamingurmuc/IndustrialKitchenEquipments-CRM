@@ -55,9 +55,10 @@ namespace IndustrialKitchenEquipmentsCRM.DAL.Abstracts
             _context.Set<T>().Remove(entity);
         }
 
-        public async Task CreateAsync(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
+            return entity;
         }
 
         public void Update(T entity, T unchanged)

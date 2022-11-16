@@ -12,6 +12,7 @@ namespace IndustrialKitchenEquipmentsCRM.DTOs
 {
     public class StockCreateDto : ICreateDto
     {
+      
         public StockCreateDto()
         {
             Images = new List<ImageCreateDto>();

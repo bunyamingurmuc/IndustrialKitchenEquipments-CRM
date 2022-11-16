@@ -1,6 +1,8 @@
-﻿using IndustrialKitchenEquipmentsCRM.DTOs.Category;
+﻿using IndustrialKitchenEquipmentsCRM.DTOs.Card;
+using IndustrialKitchenEquipmentsCRM.DTOs.Category;
 using IndustrialKitchenEquipmentsCRM.DTOs.Image;
 using IndustrialKitchenEquipmentsCRM.DTOs.Interfaces;
+using IndustrialKitchenEquipmentsCRM.Entities.Card;
 
 namespace IndustrialKitchenEquipmentsCRM.DTOs
 {
@@ -9,6 +11,7 @@ namespace IndustrialKitchenEquipmentsCRM.DTOs
         public StockListDto()
         {
             Images = new List<ImageListDto>();
+            CardItems = new List<CardItemListDto>();
         }
         public string StockName { get; set; }
         public string? StockDescription1 { get; set; }
@@ -18,7 +21,7 @@ namespace IndustrialKitchenEquipmentsCRM.DTOs
         public List<ImageListDto> Images { get; set; }
         public int? CategoryId { get; set; }
         public CategoryListDto Category { get; set; }
-
+        public List<CardItemListDto> CardItems { get; set; }
 
 
     }

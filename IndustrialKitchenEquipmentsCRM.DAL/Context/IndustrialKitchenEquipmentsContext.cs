@@ -22,6 +22,8 @@ namespace IndustrialKitchenEquipmentsCRM.DAL.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Card>().Navigation(x => x.CardItems).AutoInclude();
+            builder.Entity<Card>().Navigation(x => x.Customer).AutoInclude();
+            builder.Entity<CardItem>().Navigation(x => x.Stock).AutoInclude();
             builder.Entity<Customer>().Navigation(x => x.Cards).AutoInclude();
             builder.Entity<Image>().Navigation(x => x.Stock).AutoInclude();
             builder.Entity<Stock>().Navigation(x => x.Images).AutoInclude();

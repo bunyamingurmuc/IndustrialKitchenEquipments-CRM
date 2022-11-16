@@ -1,14 +1,9 @@
 ﻿using IndustrialKitchenEquipmentsCRM.API.Extension;
 using IndustrialKitchenEquipmentsCRM.API.Extension.Token;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
-using IndustrialKitchenEquipmentsCRM.Common;
 using IndustrialKitchenEquipmentsCRM.DTOs;
 using IndustrialKitchenEquipmentsCRM.DTOs.ControllerDtos;
-using IndustrialKitchenEquipmentsCRM.DTOs.User;
-using IndustrialKitchenEquipmentsCRM.Entities.Auth;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IndustrialKitchenEquipmentsCRM.API.Controllers

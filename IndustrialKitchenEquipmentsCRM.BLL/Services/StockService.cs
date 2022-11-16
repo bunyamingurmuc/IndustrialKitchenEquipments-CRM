@@ -25,6 +25,8 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             _uow = uow;
         }
 
+
+
         public async Task<IResponse<List<StockListDto>>> GetAllStocksWithR()
         {
             var query =await _uow.GetRepository<Stock>().GetQuery();

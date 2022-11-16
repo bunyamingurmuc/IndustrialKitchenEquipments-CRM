@@ -15,7 +15,7 @@ namespace IndustrialKitchenEquipmentsCRM.DAL.Interfaces
         Task<T?> GetByFilterAsycn(Expression<Func<T, bool>> filter, bool asNoTracking = false);
         Task<IQueryable<T>> GetQuery();
         void Remove(T entity);
-        Task CreateAsync(T entity);
+        Task<T> CreateAsync(T entity);
         void Update(T entity, T unchanged);
     }
 }

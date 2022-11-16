@@ -12,7 +12,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors]
-    [Authorize]
+    //[Authorize]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;

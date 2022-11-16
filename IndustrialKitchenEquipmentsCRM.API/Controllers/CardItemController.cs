@@ -14,7 +14,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors]
-    [Authorize]
+    //[Authorize]
     public class CardItemController : ControllerBase
     {
         private readonly ICardItemService _cardItemService;

@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] 
     [ApiController]
     [EnableCors]
-    [Authorize]
+    //[Authorize]
     public class ImageController : ControllerBase
     {
         private readonly IImageService _imageService;
@@ -71,7 +71,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 
         [HttpPost]
         [Route("/[controller]/[action]")]
-        public ActionResult ImageUpload([FromForm] CImageUploadDto dto)
+        public ActionResult ImageUpload([FromForm] CImageUploadDto dto,int stokId)
         {
             if (dto.File.Length > 0)
             {

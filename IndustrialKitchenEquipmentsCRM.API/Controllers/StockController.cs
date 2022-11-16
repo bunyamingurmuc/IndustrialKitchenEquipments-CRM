@@ -13,7 +13,8 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors]
-    [Authorize]
+    //[Authorize]
+
     public class StockController : ControllerBase
     {
         private readonly IStockService _stockService;
@@ -28,18 +29,19 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> StockGetAll()
         {
-           var response=await _stockService.GetAllStocksWithR();
+            var response = await _stockService.GetAllStocksWithR();
             return this.ResponseStatusWithData(response);
-            
+
         }
 
-       
+
 
         [HttpGet]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> StockGetById(int id)
         {
             var response = await _stockService.GetByIdAsync<StockListDto>(id);
+
             return this.ResponseStatusWithData(response);
 
         }
@@ -47,9 +49,18 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> StockCreate(StockCreateDto dto)
         {
-           var response= await _stockService.CreateAsync(dto);
-           
-           return this.ResponseStatusWithData(response);
+            var stocks = await _stockService.GetAllAsync();
+            var response = await _stockService.CreateAsync(dto);
+            if (response.ResponseType == Common.ResponseType.Success)
+            {
+                var createdDto = response.Data;
+                var createdId = stocks.Data.Where(
+                     i => i.StockName == response.Data.StockName &&
+                     i.CreatedDate == response.Data.CreatedDate
+                     );
+                return Ok(createdId);
+            }
+            return this.ResponseStatusWithData(response);
 
         }
         [HttpPut]
