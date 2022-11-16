@@ -12,8 +12,6 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
     {
         public CardItemCDValidator()
         {
-            RuleFor(i => i.Quantity).NotEmpty().WithMessage("Adet alanı boş geçilemez");
-
         }
     }
 }

@@ -1,6 +1,10 @@
+using System.Text;
 using AutoMapper;
+using IndustrialKitchenEquipmentsCRM.API.Extension.Token;
 using IndustrialKitchenEquipmentsCRM.BLL.DependencyResolvers;
 using IndustrialKitchenEquipmentsCRM.BLL.Helper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,21 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(opt =>
 {
-    opt.AddDefaultPolicy(b =>
+    opt.AddPolicy("GlobalCors",b =>
     {
         b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
-builder.Services.ConfigureApplicationCookie(opt =>
-{
-    opt.Cookie.HttpOnly=true;
-    opt.Cookie.SameSite = SameSiteMode.Strict;
-    opt.Cookie.SecurePolicy= CookieSecurePolicy.SameAsRequest;
-    opt.Cookie.Name = "TMRcrmCookie";
-    opt.ExpireTimeSpan=TimeSpan.FromDays(14);
 
-
-});
 builder.Services.AddControllers()
         .AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -52,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("GlobalCors");
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -3,6 +3,8 @@ using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.BLL.Services;
 using IndustrialKitchenEquipmentsCRM.DTOs;
 using IndustrialKitchenEquipmentsCRM.DTOs.Category;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +12,8 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
+    [Authorize]
     public class StockController : ControllerBase
     {
         private readonly IStockService _stockService;

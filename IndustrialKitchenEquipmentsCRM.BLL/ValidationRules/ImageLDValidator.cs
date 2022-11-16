@@ -12,8 +12,6 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
     {
         public ImageLDValidator()
         {
-            RuleFor(x => x.Url).NotEmpty().WithMessage("Url alanı boş geçilemez");
-
         }
     }
 }

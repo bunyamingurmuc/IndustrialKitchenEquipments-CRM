@@ -1,65 +1,36 @@
-﻿using IndustrialKitchenEquipmentsCRM.DTOs;
+﻿using IndustrialKitchenEquipmentsCRM.API.Extension;
+using IndustrialKitchenEquipmentsCRM.API.Extension.Token;
+using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
+using IndustrialKitchenEquipmentsCRM.Common;
+using IndustrialKitchenEquipmentsCRM.DTOs;
 using IndustrialKitchenEquipmentsCRM.DTOs.ControllerDtos;
+using IndustrialKitchenEquipmentsCRM.DTOs.User;
 using IndustrialKitchenEquipmentsCRM.Entities.Auth;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly RoleManager<AppRole> _roleManager;
-        private readonly IWebHostEnvironment _environment;
+        
+        private readonly IAppUserService _appUserService;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
+        public AccountController(IAppUserService appUserService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager;
+            _appUserService = appUserService;
         }
-
         [HttpPost]
         [Route("/[controller]/[action]")]
         public async Task<IActionResult> CreateAccount(CCreateAccountDto dto)
         {
-
-            AppUser appUser = new()
-            {
-                Email = dto.Email,
-                Name = dto.Name,
-                SurName = dto.Surname,
-                UserName = dto.Email,
-                Adress=dto.Adress,
-            };
-
-            var identityResult = await _userManager.CreateAsync(appUser, dto.Password);
-            if (identityResult.Succeeded)
-            {
-                var user = await _userManager.FindByNameAsync(appUser.UserName);
-                if (!_roleManager.Roles.Any())
-                {
-                    await _roleManager.CreateAsync(new AppRole()
-                    {
-                        Name = "Member"
-                    });
-                    await _roleManager.CreateAsync(new AppRole()
-                    {
-                        Name = "Admin"
-                    });
-
-                }
-                await _userManager.AddToRoleAsync(user, "Member");
-                return Ok(appUser);
-            }
-            else
-            {
-                return BadRequest(""); 
-            }
+            var response = await _appUserService.CreateUser(dto);
+           return this.ResponseStatusWithData(response);
         }
 
 
@@ -67,22 +38,28 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> LogIn(CLoginDto dto)
         {
-
-
-            var signInResult = await _signInManager.PasswordSignInAsync(dto.Email, dto.Password, dto.RememberMe, false);
-            if (signInResult.Succeeded)
+            var response = await _appUserService.GetAllAsync();
+            var appusers = response.Data;
+            var user = appusers.FirstOrDefault(i => i.Email == dto.Email && i.Password == dto.Password);
+            if (user == null)
             {
-                return Ok(dto);
+                return NotFound("Kullanıcı adı veya parola yanlış"); 
             }
             else
             {
-                return BadRequest();
+                var token = JwtTokenGenerator.GenerateToken(dto);
+                return Created("", token);
             }
-
-
         }
 
+        //[HttpGet]
+        //[Route("/[controller]/[action]")]
 
+        //public async Task<ActionResult> LogOut()
+        //{
+        //    await _signInManager.SignOutAsync();
+        //    return Ok();
+        //}
 
     }
 }

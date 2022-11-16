@@ -1,6 +1,4 @@
-﻿
-
-
+﻿@model IndustrialKitchenEquipmentsCRM.DTOs.PdfReportDto
 <!DOCTYPE html>
 <html lang="en">
 
@@ -111,7 +109,9 @@
                 {
                     <tr>
                         <th>A.01 </th>
-                        <td><img id="resim" src="https://www.cafemarkt.com/patates-soyma-makinesi-25-kg-patates-ve-sogan-soyma-makineleri-bosfor-12312-93-B.jpg"></td>
+                        <td>
+                            <img id="resim" src="@Model.Imagesrc"/>
+                              </td>
                         <td>
                             <div id="tabloAciklamasi">
                                 <div>Patates Soyma Makinesi</div>

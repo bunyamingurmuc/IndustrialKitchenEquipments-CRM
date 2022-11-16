@@ -17,7 +17,8 @@ namespace IndustrialKitchenEquipmentsCRM.DTOs
             Images = new List<ImageCreateDto>();
         }
         public string StockName { get; set; }
-        public string StockDescription { get; set; }
+        public string? StockDescription1 { get; set; }
+        public string? StockDescription2 { get; set; }
         public int StockCount { get; set; }
         public bool IsAvalible { get; set; }
         public List<ImageCreateDto> Images { get; set; }

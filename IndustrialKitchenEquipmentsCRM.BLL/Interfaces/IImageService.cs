@@ -16,6 +16,7 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
         IResponse CreateImage(FileStream fileStream, IFormFile formFile);
         IResponse DeleteImage(string filePath);
         IResponse updateImage(string oldFilePath, FileStream fileStream, IFormFile formFile);
+        string ConvertToBase64(string path);
 
     }
 }

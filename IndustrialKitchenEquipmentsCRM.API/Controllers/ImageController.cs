@@ -1,13 +1,18 @@
 ﻿using IndustrialKitchenEquipmentsCRM.API.Extension;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
+using IndustrialKitchenEquipmentsCRM.Common;
 using IndustrialKitchenEquipmentsCRM.DTOs.ControllerDtos;
 using IndustrialKitchenEquipmentsCRM.DTOs.Image;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
+    [Authorize]
     public class ImageController : ControllerBase
     {
         private readonly IImageService _imageService;
@@ -79,7 +84,14 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
                 FileStream fileStream =
                     System.IO.File.Create(_environment.WebRootPath + "\\Upload\\" + dto.File.FileName);
                 var response = _imageService.CreateImage(fileStream, dto.File);
-                return this.ResponseStatusWithData(response);
+                if (response.ResponseType==ResponseType.Success)
+                {
+                    return Ok(response.Message);
+                }
+                else
+                {
+                    return BadRequest("Bir hata oluştu");
+                }
             }
 
             return BadRequest();

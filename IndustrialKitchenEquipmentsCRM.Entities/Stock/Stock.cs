@@ -1,6 +1,5 @@
 ﻿using IndustrialKitchenEquipmentsCRM.Entities.Card;
 using IndustrialKitchenEquipmentsCRM.Entities.Interface;
-using IndustrialKitchenEquipmentsCRM.Entities;
 namespace IndustrialKitchenEquipmentsCRM.Entities.Stock
 {
     public class Stock:BaseEntity
@@ -11,7 +10,8 @@ namespace IndustrialKitchenEquipmentsCRM.Entities.Stock
             CardItems = new List<CardItem>();
         }
         public string StockName { get; set; }
-        public string? StockDescription { get; set; }
+        public string? StockDescription1 { get; set; }
+        public string? StockDescription2 { get; set; }
         public int StockCount { get; set; }
         public bool IsAvalible { get; set; }
         public List<Image.Image>? Images { get; set; }

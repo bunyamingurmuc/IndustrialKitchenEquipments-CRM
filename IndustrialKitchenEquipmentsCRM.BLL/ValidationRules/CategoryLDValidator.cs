@@ -12,8 +12,6 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
     {
         public CategoryLDValidator()
         {
-            RuleFor(i => i.CategoryName).NotEmpty().WithMessage("Kategori ismi alanı boş geçilemez");
-
         }
     }
 }

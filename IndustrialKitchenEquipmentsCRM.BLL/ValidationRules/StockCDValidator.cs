@@ -12,8 +12,6 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
     {
         public StockCDValidator()
         {
-            RuleFor(x => x.StockName).NotEmpty().WithMessage("Stok adı alanı boş geçilemez");
-            RuleFor(x => x.StockCount).NotEmpty().WithMessage("Stok sayısı alanı boş geçilemez");
 
         }
     }

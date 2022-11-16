@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace IndustrialKitchenEquipmentsCRM.DTOs
 {
-    public class CLoginDto
+    public class PdfReportDto
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
-      
-      
+        public string Imagesrc { get; set; }
     }
 }

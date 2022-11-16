@@ -38,7 +38,8 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Mapping
       
             
 
-            CreateMap<AppUserListDto, AppUser>();
+            CreateMap<AppUserListDto, AppUser>().ReverseMap();
+            CreateMap<AppUserCreateDto, AppUser>().ReverseMap();
 
 
         }

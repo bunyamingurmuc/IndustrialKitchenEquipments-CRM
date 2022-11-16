@@ -2,6 +2,8 @@
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.DTOs;
 using IndustrialKitchenEquipmentsCRM.DTOs.Customer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +11,8 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
+    [Authorize]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;

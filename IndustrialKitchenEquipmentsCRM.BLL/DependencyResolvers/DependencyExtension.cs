@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using System.Text;
+using FluentValidation;
+using IndustrialKitchenEquipmentsCRM.API.Extension.Token;
 using IndustrialKitchenEquipmentsCRM.BLL.CustomDescriber;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.BLL.Services;
@@ -10,10 +12,14 @@ using IndustrialKitchenEquipmentsCRM.DTOs.Card;
 using IndustrialKitchenEquipmentsCRM.DTOs.Category;
 using IndustrialKitchenEquipmentsCRM.DTOs.Customer;
 using IndustrialKitchenEquipmentsCRM.DTOs.Image;
+using IndustrialKitchenEquipmentsCRM.DTOs.User;
 using IndustrialKitchenEquipmentsCRM.Entities.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Wkhtmltopdf.NetCore;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.DependencyResolvers
@@ -26,25 +32,19 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.DependencyResolvers
             {
                 opt.UseSqlServer(configuration.GetConnectionString("Local"));
             });
-            services.AddIdentity<AppUser, AppRole>(o =>
+           
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {
-                o.Password.RequireDigit = false;
-                o.Password.RequireNonAlphanumeric = false;
-                o.Password.RequireLowercase = false;
-                o.Password.RequireUppercase = false;
-                o.Password.RequiredLength = 1;
-            }).AddErrorDescriber<CustomErrorDescriber>().AddEntityFrameworkStores<IndustrialKitchenEquipmentsContext>();
-
-            services.ConfigureApplicationCookie(o =>
-            {
-                o.Cookie.HttpOnly = true;
-                o.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.SameAsRequest;
-                o.Cookie.Name = "FormCookie";
-                o.ExpireTimeSpan = TimeSpan.FromDays(1);
-                o.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/account/accessdeied");
-                o.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
-
-
+                opt.RequireHttpsMetadata = false;
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = JwtTokenSettings.Issuer,
+                    ValidAudience = JwtTokenSettings.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenSettings.Key)),
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
             });
             services.AddWkhtmltopdf("wkhtmltopdf");
           
@@ -55,6 +55,7 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.DependencyResolvers
             services.AddScoped<ICardService, CardService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IAppUserService, AppUserService>();
 
 
 
@@ -75,6 +76,9 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.DependencyResolvers
 
             services.AddSingleton<IValidator<CustomerListDto>, CustomerLDValidator>();
             services.AddSingleton<IValidator<CustomerCreateDto>, CustomerCDValidator>();
+
+            services.AddSingleton<IValidator<AppUserCreateDto>, AppUserCDValidator>();
+            services.AddSingleton<IValidator<AppUserListDto>, AppUserLDValidator>();
 
 
         }

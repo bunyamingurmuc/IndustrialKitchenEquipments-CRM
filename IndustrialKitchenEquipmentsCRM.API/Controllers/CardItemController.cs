@@ -3,13 +3,18 @@ using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.BLL.Services;
 using IndustrialKitchenEquipmentsCRM.DTOs.Card;
 using IndustrialKitchenEquipmentsCRM.Entities.Card;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
+    [Authorize]
     public class CardItemController : ControllerBase
     {
         private readonly ICardItemService _cardItemService;
@@ -18,7 +23,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         {
             _cardItemService = cardItemService;
         }
-
+        
         [HttpGet]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CardItemGetAll()

@@ -28,7 +28,7 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
         {
             formFile.CopyTo(fileStream);
             fileStream.Flush();
-            return new Response(ResponseType.Success,$"//Upload//+{formFile.FileName}");
+            return new Response(ResponseType.Success,$"/Upload/{formFile.FileName}");
 
         }
 
@@ -44,6 +44,15 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             DeleteImage(oldFilePath);
             CreateImage(fileStream, formFile);
             return new Response(ResponseType.Success);
+        }
+
+        public string ConvertToBase64(string path)
+        {
+            FileStream fs = new FileStream(path, FileMode.Open);
+            byte[] byData = new byte[fs.Length];
+            fs.Read(byData, 0, byData.Length);
+            var base64 = Convert.ToBase64String(byData);
+            return String.Format("data:image/jpg;base64,{0}", base64);
         }
     }
 }

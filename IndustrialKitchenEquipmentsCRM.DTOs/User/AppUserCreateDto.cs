@@ -1,18 +1,18 @@
-﻿using System;
+﻿using IndustrialKitchenEquipmentsCRM.DTOs.Card;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IndustrialKitchenEquipmentsCRM.Entities.Interface;
-using Microsoft.AspNetCore.Identity;
+using IndustrialKitchenEquipmentsCRM.DTOs.Interfaces;
 
-namespace IndustrialKitchenEquipmentsCRM.Entities.Auth
+namespace IndustrialKitchenEquipmentsCRM.DTOs.User
 {
-    public class AppUser :BaseEntity
+    public class AppUserCreateDto:ICreateDto
     {
-        public AppUser()
+        public AppUserCreateDto()
         {
-            Cards = new List<Entities.Card.Card>();
+            Cards = new List<CardCreateDto>();
         }
         public string Email { get; set; }
         public string Name { get; set; }
@@ -20,7 +20,6 @@ namespace IndustrialKitchenEquipmentsCRM.Entities.Auth
         public string Adress { get; set; }
         public string Password { get; set; }
 
-        public List<Card.Card> Cards { get; set; }
-
+        public List<CardCreateDto> Cards { get; set; }
     }
 }

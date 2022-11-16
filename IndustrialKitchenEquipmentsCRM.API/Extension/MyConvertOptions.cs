@@ -10,5 +10,8 @@ namespace IndustrialKitchenEquipmentsCRM.API.Extension
         public string FooterCenter { get; set; }
         [OptionFlag("--header-html")]
         public string HeaderHtml { get; set; }
+
+        [OptionFlag("--enable-local-file-access")]
+        public bool EnableLocalAccess { get; set; }
     }
 }

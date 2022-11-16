@@ -12,7 +12,6 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
     {
         public CustomerLDValidator()
         {
-
         }
     }
 }

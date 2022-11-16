@@ -1,26 +1,35 @@
-﻿using IndustrialKitchenEquipmentsCRM.API.Extension;
+﻿using System.Drawing;
+using IndustrialKitchenEquipmentsCRM.API.Extension;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
+using IndustrialKitchenEquipmentsCRM.DTOs;
 using IndustrialKitchenEquipmentsCRM.DTOs.Card;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Wkhtmltopdf.NetCore;
 
 namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
+    
     public class CardController : ControllerBase
     {
         private readonly ICardService _cardService;
+        private readonly IImageService _imageService;
         private readonly IGeneratePdf _generatePdf;
+        public static IWebHostEnvironment _environment;
 
-
-        public CardController(ICardService cardService, IGeneratePdf generatePdf)
+        public CardController(ICardService cardService, IGeneratePdf generatePdf, IWebHostEnvironment environment, IImageService imageService)
         {
             _cardService = cardService;
             _generatePdf = generatePdf;
+            _environment = environment;
+            _imageService = imageService;
         }
-        [Authorize]
+
         [HttpGet]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CardGetAll()
@@ -59,7 +68,6 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         {
             var response = await _cardService.RemoveAsync(id);
             return this.ResponseStatusWithData(response);
-
         }
         [HttpPost]
         [Route("/[controller]/[action]")]
@@ -69,10 +77,16 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
             {
                 FooterCenter = "\" Sayfa [page] / [topage] \"",
                 HeaderHtml = "Views/dene.html",
+                EnableLocalAccess = true
+            };
+            var path = _environment.WebRootPath + "\\Upload\\" + "1.jpg";
+            var dto = new PdfReportDto
+            {
+                Imagesrc = _imageService.ConvertToBase64(path)
             };
             _generatePdf.SetConvertOptions(myConvertOptions);
-            return await _generatePdf.GetPdf("Denemee");
+            var result= await _generatePdf.GetPdf("Denemee", dto);
+            return result;
         }
-
     }
 }
