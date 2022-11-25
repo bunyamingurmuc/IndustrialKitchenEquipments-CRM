@@ -16,7 +16,7 @@ using IndustrialKitchenEquipmentsCRM.BLL.Extensions;
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
     public class Service<CreateDto, ListDto, T> : IService<CreateDto, ListDto, T>
-     where CreateDto : class, new()
+     where CreateDto : ICreateDto, new()
      where ListDto : IListDto, new()
      where T : BaseEntity
     {
@@ -59,6 +59,7 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
                 var createdEntity = _mapper.Map<T>(dto);
                 await _uow.GetRepository<T>().CreateAsync(createdEntity);
                 await _uow.SaveChangesAsycn();
+                dto.Id=createdEntity.Id;
                 return new Response<CreateDto>(ResponseType.Success, dto);
             }
 
@@ -99,9 +100,5 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             return new Response(ResponseType.Success);
 
         }
-
-        
-
-
     }
 }

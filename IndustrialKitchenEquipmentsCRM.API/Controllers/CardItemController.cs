@@ -28,7 +28,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CardItemGetAll()
         {
-            var response = await _cardItemService.GetAllAsync();
+            var response = await _cardItemService.GetAllWithR();
             return this.ResponseStatusWithData(response);
 
         }
@@ -36,7 +36,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CardItemGet(int id)
         {
-            var response = await _cardItemService.GetByIdAsync<CardItem>(id);
+            var response = await _cardItemService.GetR(id);
             return this.ResponseStatusWithData(response);
 
         }

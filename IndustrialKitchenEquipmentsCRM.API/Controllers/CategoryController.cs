@@ -27,7 +27,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CategoryGetAll()
         {
-            var response =await _categoryService.GetAllAsync();
+            var response =await _categoryService.GetAllWithR();
             return this.ResponseStatusWithData(response);
 
         }
@@ -35,7 +35,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CategoryGet(int id)
         {
-            var response =await _categoryService.GetByIdAsync<CategoryListDto>(id);
+            var response =await _categoryService.GetR(id);
             return this.ResponseStatusWithData(response);
 
         }

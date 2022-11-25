@@ -3,19 +3,31 @@ using FluentValidation;
 using IndustrialKitchenEquipmentsCRM.API.Extension.Token;
 using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.Common;
+using IndustrialKitchenEquipmentsCRM.DAL.Context;
 using IndustrialKitchenEquipmentsCRM.DAL.UOW;
 using IndustrialKitchenEquipmentsCRM.DTOs;
+using IndustrialKitchenEquipmentsCRM.DTOs.Card;
 using IndustrialKitchenEquipmentsCRM.DTOs.ControllerDtos;
 using IndustrialKitchenEquipmentsCRM.DTOs.User;
 using IndustrialKitchenEquipmentsCRM.Entities.Auth;
+using Microsoft.EntityFrameworkCore;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
     public class AppUserService: Service<AppUserCreateDto, AppUserListDto, AppUser>, IAppUserService
     {
-        public AppUserService(IMapper mapper, IValidator<AppUserCreateDto> createDtoValidator, IValidator<AppUserListDto> updateDtoValidator, IUOW uow) : base(mapper, createDtoValidator, updateDtoValidator, uow)
+        public readonly IMapper _mapper;
+        public readonly IValidator<AppUserCreateDto> _createDtoValidator;
+        public readonly IValidator<AppUserListDto> _updateDtoValidator;
+        public readonly IUOW _uow;
+        public readonly IndustrialKitchenEquipmentsContext _context;
+        public AppUserService(IMapper mapper, IValidator<AppUserCreateDto> createDtoValidator, IValidator<AppUserListDto> updateDtoValidator, IUOW uow, IValidator<CardItemListDto> updateDtoValidator1, IValidator<CardItemCreateDto> createDtoValidator1, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, updateDtoValidator, uow)
         {
-
+            _mapper = mapper;
+            _createDtoValidator = createDtoValidator;
+            _updateDtoValidator = updateDtoValidator;
+            _uow = uow;
+            _context = context;
         }
 
         public async Task<IResponse<AppUserCreateDto>> CreateUser(CCreateAccountDto dto)
@@ -42,6 +54,23 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             return new Response<AppUserCreateDto>(ResponseType.Success, result.Data);
         }
 
-       
+        public async Task<IResponse<List<AppUserListDto>>> GetAllWithR()
+        {
+            var AppUsers =await _context.AppUsers
+                .Include(x => x.Cards).ToListAsync();
+            var mapped = _mapper.Map<List<AppUserListDto>>(AppUsers);
+            return new Response<List<AppUserListDto>>(ResponseType.Success, mapped);
+
+
+
+        }
+
+        public async Task<IResponse<AppUserListDto>> GetR(int id)
+        {
+            var AppUser = await _context.AppUsers.Where(i=>i.Id==id)
+                .Include(x => x.Cards).FirstOrDefaultAsync();
+            var mapped = _mapper.Map<AppUserListDto>(AppUser);
+            return new Response<AppUserListDto>(ResponseType.Success, mapped);
+        }
     }
 }

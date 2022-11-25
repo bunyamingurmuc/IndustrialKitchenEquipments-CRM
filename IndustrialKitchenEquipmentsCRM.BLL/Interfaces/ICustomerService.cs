@@ -1,4 +1,7 @@
-﻿using IndustrialKitchenEquipmentsCRM.DTOs.Customer;
+﻿using IndustrialKitchenEquipmentsCRM.Common;
+using IndustrialKitchenEquipmentsCRM.DTOs;
+using IndustrialKitchenEquipmentsCRM.DTOs.Category;
+using IndustrialKitchenEquipmentsCRM.DTOs.Customer;
 using IndustrialKitchenEquipmentsCRM.Entities.Customer;
 using System;
 using System.Collections.Generic;
@@ -10,5 +13,7 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
 {
     public interface ICustomerService:IService<CustomerCreateDto,CustomerListDto,Customer>
     {
+        Task<IResponse<List<CustomerListDto>>> GetAllWithR();
+        Task<IResponse<CustomerListDto>> GetR(int id);
     }
 }

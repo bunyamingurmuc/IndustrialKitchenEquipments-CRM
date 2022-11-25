@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using IndustrialKitchenEquipmentsCRM.Common;
 using IndustrialKitchenEquipmentsCRM.DTOs;
+using IndustrialKitchenEquipmentsCRM.DTOs.Image;
 using IndustrialKitchenEquipmentsCRM.Entities.Stock;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
 {
     public interface IStockService:IService<StockCreateDto,StockListDto,Stock>
     {
-        Task<IResponse<List<StockListDto>>> GetAllStocksWithR();
+        Task<IResponse<List<StockListDto>>> GetAllWithR();
+        Task<IResponse<StockListDto>> GetR(int id);
+
     }
 }

@@ -14,6 +14,9 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
     public interface IAppUserService:IService<AppUserCreateDto,AppUserListDto,AppUser>
     {
         public Task<IResponse<AppUserCreateDto>> CreateUser(CCreateAccountDto dto);
- 
+        Task<IResponse<List<AppUserListDto>>> GetAllWithR();
+        Task<IResponse<AppUserListDto>> GetR(int id);
+
+
     }
 }

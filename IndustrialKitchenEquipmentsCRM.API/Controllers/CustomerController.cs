@@ -26,7 +26,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CustomerGetAll()
         {
-            var response = await _customerService.GetAllAsync();
+            var response = await _customerService.GetAllWithR();
             return this.ResponseStatusWithData(response);
 
         }
@@ -37,7 +37,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CustomerGetById(int id)
         {
-            var response = await _customerService.GetByIdAsync<CustomerListDto>(id);
+            var response = await _customerService.GetR(id);
             return this.ResponseStatusWithData(response);
 
         }

@@ -20,7 +20,9 @@ namespace IndustrialKitchenEquipmentsCRM.DTOs.Card
         }
         public int? AppUserId { get; set; }
         public List<CardItemListDto> CardItems { get; set; }
-        public int TotalPrice { get; set; }
+        public int Discount { get; set; }
+
+        public double TotalPrice { get; set; }
         public int? CustomerId { get; set; }
         public CustomerListDto? Customer { get; set; }
         public CurrencyUnit CurrencyUnit { get; set; }

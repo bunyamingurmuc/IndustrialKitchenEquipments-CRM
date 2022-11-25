@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IndustrialKitchenEquipmentsCRM.DTOs.Interfaces;
 
 namespace IndustrialKitchenEquipmentsCRM.DTOs.Customer
 {
-    public class CustomerCreateDto
+    public class CustomerCreateDto:ICreateDto
     {
         public CustomerCreateDto()
         {

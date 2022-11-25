@@ -13,6 +13,7 @@ namespace IndustrialKitchenEquipmentsCRM.Entities.Stock
         public string? StockDescription1 { get; set; }
         public string? StockDescription2 { get; set; }
         public int StockCount { get; set; }
+        public double Price { get; set; }
         public bool IsAvalible { get; set; }
         public List<Image.Image>? Images { get; set; }
         public List<CardItem>? CardItems { get; set; }

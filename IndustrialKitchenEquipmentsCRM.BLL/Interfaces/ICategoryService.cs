@@ -1,4 +1,7 @@
-﻿using IndustrialKitchenEquipmentsCRM.DTOs.Category;
+﻿using IndustrialKitchenEquipmentsCRM.Common;
+using IndustrialKitchenEquipmentsCRM.DTOs;
+using IndustrialKitchenEquipmentsCRM.DTOs.Card;
+using IndustrialKitchenEquipmentsCRM.DTOs.Category;
 using IndustrialKitchenEquipmentsCRM.Entities.Category;
 using System;
 using System.Collections.Generic;
@@ -10,5 +13,7 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
 {
     public interface ICategoryService:IService<CategoryCreateDto,CategoryListDto,Category>
     {
+        Task<IResponse<List<CategoryListDto>>> GetAllWithR();
+        Task<IResponse<CategoryListDto>> GetR(int id);
     }
 }

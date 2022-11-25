@@ -34,14 +34,14 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CardGetAll()
         {
-            var response = await _cardService.GetAllAsync();
+            var response = await _cardService.GetAllWithR();
             return this.ResponseStatusWithData(response);
         }
         [HttpGet]
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CardGetById(int id)
         {
-            var response = await _cardService.GetByIdAsync<CardListDto>(id);
+            var response = await _cardService.GetR(id);
             return this.ResponseStatusWithData(response);
            
 
@@ -50,7 +50,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> CardCreate(CardCreateDto dto)
         {
-            var response = await _cardService.CreateAsync(dto);
+            var response = await _cardService.CreateR(dto);
             return this.ResponseStatusWithData(response);
 
         }

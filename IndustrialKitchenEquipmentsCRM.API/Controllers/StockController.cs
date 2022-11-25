@@ -29,7 +29,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> StockGetAll()
         {
-            var response = await _stockService.GetAllStocksWithR();
+            var response = await _stockService.GetAllWithR();
             return this.ResponseStatusWithData(response);
 
         }
@@ -40,7 +40,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> StockGetById(int id)
         {
-            var response = await _stockService.GetByIdAsync<StockListDto>(id);
+            var response = await _stockService.GetR(id);
 
             return this.ResponseStatusWithData(response);
 
@@ -53,12 +53,8 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
             var response = await _stockService.CreateAsync(dto);
             if (response.ResponseType == Common.ResponseType.Success)
             {
-                var createdDto = response.Data;
-                var createdId = stocks.Data.Where(
-                     i => i.StockName == response.Data.StockName &&
-                     i.CreatedDate == response.Data.CreatedDate
-                     );
-                return Ok(createdId);
+              
+                return Ok(response.Data.Id);
             }
             return this.ResponseStatusWithData(response);
 

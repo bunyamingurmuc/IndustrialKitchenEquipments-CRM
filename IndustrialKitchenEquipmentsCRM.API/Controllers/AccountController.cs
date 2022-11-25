@@ -33,7 +33,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> LogIn(CLoginDto dto)
         {
-            var response = await _appUserService.GetAllAsync();
+            var response = await _appUserService.GetAllWithR();
             var appusers = response.Data;
             var user = appusers.FirstOrDefault(i => i.Email == dto.Email && i.Password == dto.Password);
             if (user == null)

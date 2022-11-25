@@ -3,13 +3,12 @@ using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.Common;
 using IndustrialKitchenEquipmentsCRM.DTOs.ControllerDtos;
 using IndustrialKitchenEquipmentsCRM.DTOs.Image;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 {
-    [Route("api/[controller]")] 
+    [Route("api/[controller]")]
     [ApiController]
     [EnableCors]
     //[Authorize]
@@ -28,7 +27,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> ImageGetAll()
         {
-            var images = await _imageService.GetAllAsync();
+            var images = await _imageService.GetAllWithR();
             return this.ResponseStatusWithData(images);
         }
 
@@ -36,7 +35,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         [Route("/[controller]/[action]")]
         public async Task<ActionResult> ImageGetById(int id)
         {
-            var response = await _imageService.GetByIdAsync<ImageListDto>(id);
+            var response = await _imageService.GetR(id);
             return this.ResponseStatusWithData(response);
 
         }
@@ -71,7 +70,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 
         [HttpPost]
         [Route("/[controller]/[action]")]
-        public ActionResult ImageUpload([FromForm] CImageUploadDto dto,int stokId)
+        public async Task<ActionResult> ImageUpload([FromForm] CImageUploadDto dto, int stokId)
         {
             if (dto.File.Length > 0)
             {
@@ -80,13 +79,22 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
                 {
                     Directory.CreateDirectory(_environment.WebRootPath + "\\Upload\\");
                 }
-
+                Random rnd = new Random();
+                int randomNumber = rnd.Next(1, 4000); 
+                var filepath = _environment.WebRootPath + "\\Upload\\"+"img" + randomNumber+".png";
                 FileStream fileStream =
-                    System.IO.File.Create(_environment.WebRootPath + "\\Upload\\" + dto.File.FileName);
+                            System.IO.File.Create(filepath);
                 var response = _imageService.CreateImage(fileStream, dto.File);
-                if (response.ResponseType==ResponseType.Success)
+                if (response.ResponseType == ResponseType.Success)
+
                 {
-                    return Ok(response.Message);
+                    var response1 = await _imageService.CreateAsync(new ImageCreateDto()
+                    {
+                        StockId = stokId,
+                        Url = filepath,
+
+                    });
+                    return this.ResponseStatusWithData(response);
                 }
                 else
                 {
