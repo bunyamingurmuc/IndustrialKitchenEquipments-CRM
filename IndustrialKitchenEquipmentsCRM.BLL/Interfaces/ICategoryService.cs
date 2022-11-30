@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
 {
-    public interface ICategoryService:IService<CategoryCreateDto,CategoryListDto,Category>
+    public interface ICategoryService:IService<CategoryCreateDto,CategoryListDto,CategoryUpdateDto,Category>
     {
         Task<IResponse<List<CategoryListDto>>> GetAllWithR();
         Task<IResponse<CategoryListDto>> GetR(int id);

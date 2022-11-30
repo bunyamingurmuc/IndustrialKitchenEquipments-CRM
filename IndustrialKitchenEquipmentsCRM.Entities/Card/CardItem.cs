@@ -12,5 +12,9 @@ namespace IndustrialKitchenEquipmentsCRM.Entities.Card
         public Card? Card { get; set; }
         public double Amount { get; set; }
 
+        public double Sum()
+        {
+            return Stock.Price * Quantity;
+        }
     }
 }

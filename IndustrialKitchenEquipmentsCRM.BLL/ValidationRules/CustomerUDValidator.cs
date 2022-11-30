@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using IndustrialKitchenEquipmentsCRM.DTOs.Card;
+using IndustrialKitchenEquipmentsCRM.DTOs.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
 {
-    public class CardLDValidator: AbstractValidator<CardListDto>
+    public class CustomerUDValidator:AbstractValidator<CustomerUpdateDto>
     {
-        public CardLDValidator()
+        public CustomerUDValidator()
         {
-
         }
     }
 }

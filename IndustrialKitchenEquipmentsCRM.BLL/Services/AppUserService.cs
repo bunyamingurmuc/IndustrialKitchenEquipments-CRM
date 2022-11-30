@@ -14,14 +14,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
-    public class AppUserService: Service<AppUserCreateDto, AppUserListDto, AppUser>, IAppUserService
+    public class AppUserService: Service<AppUserCreateDto, AppUserListDto, AppUserUpdateDto, AppUser>, IAppUserService
     {
         public readonly IMapper _mapper;
         public readonly IValidator<AppUserCreateDto> _createDtoValidator;
-        public readonly IValidator<AppUserListDto> _updateDtoValidator;
+        public readonly IValidator<AppUserUpdateDto> _updateDtoValidator;
         public readonly IUOW _uow;
         public readonly IndustrialKitchenEquipmentsContext _context;
-        public AppUserService(IMapper mapper, IValidator<AppUserCreateDto> createDtoValidator, IValidator<AppUserListDto> updateDtoValidator, IUOW uow, IValidator<CardItemListDto> updateDtoValidator1, IValidator<CardItemCreateDto> createDtoValidator1, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, updateDtoValidator, uow)
+
+        public AppUserService(IMapper mapper, IValidator<AppUserCreateDto> createDtoValidator, IUOW uow, IValidator<AppUserUpdateDto> updateDtoValidator, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, uow, updateDtoValidator)
         {
             _mapper = mapper;
             _createDtoValidator = createDtoValidator;
@@ -29,7 +30,6 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             _uow = uow;
             _context = context;
         }
-
         public async Task<IResponse<AppUserCreateDto>> CreateUser(CCreateAccountDto dto)
         {
             var appusers = GetAllAsync();

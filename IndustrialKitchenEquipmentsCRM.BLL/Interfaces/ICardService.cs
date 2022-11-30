@@ -10,7 +10,7 @@ using IndustrialKitchenEquipmentsCRM.Entities.Card;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
 {
-    public interface ICardService:IService<CardCreateDto,CardListDto,Card>
+    public interface ICardService:IService<CardCreateDto,CardListDto,CardUpdateDto,Card>
     {
         IResponse CreatePdf();
         Task<IResponse<List<CardListDto>>> GetAllWithR();

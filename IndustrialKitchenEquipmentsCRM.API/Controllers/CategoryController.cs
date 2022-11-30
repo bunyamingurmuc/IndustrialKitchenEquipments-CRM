@@ -51,7 +51,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 
         [HttpPut]
         [Route("/[controller]/[action]")]
-        public async Task<ActionResult> CategoryUpdate(CategoryListDto dto)
+        public async Task<ActionResult> CategoryUpdate(CategoryUpdateDto dto)
         {
             var response = await _categoryService.UpdateAsync(dto);
 

@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
-    public class ImageService:Service<ImageCreateDto,ImageListDto,Image>,IImageService
+    public class ImageService:Service<ImageCreateDto,ImageListDto,ImageUpdateDto,Image>,IImageService
     {
         public readonly IMapper _mapper;
         public readonly IValidator<ImageCreateDto> _createDtoValidator;
-        public readonly IValidator<ImageListDto> _updateDtoValidator;
+        public readonly IValidator<ImageUpdateDto> _updateDtoValidator;
         public readonly IUOW _uow;
         public readonly IndustrialKitchenEquipmentsContext _context;
 
-        public ImageService(IMapper mapper, IValidator<ImageCreateDto> createDtoValidator, IValidator<ImageListDto> updateDtoValidator, IUOW uow, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, updateDtoValidator, uow)
+        public ImageService(IMapper mapper, IValidator<ImageCreateDto> createDtoValidator, IUOW uow, IValidator<ImageUpdateDto> updateDtoValidator, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, uow, updateDtoValidator)
         {
             _mapper = mapper;
             _createDtoValidator = createDtoValidator;
@@ -28,6 +28,7 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             _uow = uow;
             _context = context;
         }
+
 
         public IResponse CreateImage(FileStream fileStream, IFormFile formFile)
         {

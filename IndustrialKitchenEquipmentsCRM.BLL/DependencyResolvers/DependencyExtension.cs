@@ -12,6 +12,7 @@ using IndustrialKitchenEquipmentsCRM.DTOs.Card;
 using IndustrialKitchenEquipmentsCRM.DTOs.Category;
 using IndustrialKitchenEquipmentsCRM.DTOs.Customer;
 using IndustrialKitchenEquipmentsCRM.DTOs.Image;
+using IndustrialKitchenEquipmentsCRM.DTOs.Stock;
 using IndustrialKitchenEquipmentsCRM.DTOs.User;
 using IndustrialKitchenEquipmentsCRM.Entities.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -60,25 +61,25 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.DependencyResolvers
 
 
             services.AddSingleton<IValidator<StockCreateDto>, StockCDValidator>();
-            services.AddSingleton<IValidator<StockListDto>, StockLDValidator>();
+            services.AddSingleton<IValidator<StockUpdateDto>, StockUDValidator>();
 
-            services.AddSingleton<IValidator<CategoryListDto>, CategoryLDValidator>();
+            services.AddSingleton<IValidator<CategoryUpdateDto>, CategoryUDValidator>();
             services.AddSingleton<IValidator<CategoryCreateDto>, CategoryCDValidator>();
 
             services.AddSingleton<IValidator<CardItemCreateDto>, CardItemCDValidator>();
-            services.AddSingleton<IValidator<CardItemListDto>, CardItemLDValidator>();
+            services.AddSingleton<IValidator<CardItemUpdateDto>, CardItemUDValidator>();
 
-            services.AddSingleton<IValidator<CardListDto>, CardLDValidator>();
+            services.AddSingleton<IValidator<CardUpdateDto>, CardUDValidator>();
             services.AddSingleton<IValidator<CardCreateDto>, CardCDValidator>();
 
-            services.AddSingleton<IValidator<ImageListDto>, ImageLDValidator>();
+            services.AddSingleton<IValidator<ImageUpdateDto>, ImageUDValidator>();
             services.AddSingleton<IValidator<ImageCreateDto>, ImageCDValidator>();
 
-            services.AddSingleton<IValidator<CustomerListDto>, CustomerLDValidator>();
+            services.AddSingleton<IValidator<CustomerUpdateDto>, CustomerUDValidator>();
             services.AddSingleton<IValidator<CustomerCreateDto>, CustomerCDValidator>();
 
             services.AddSingleton<IValidator<AppUserCreateDto>, AppUserCDValidator>();
-            services.AddSingleton<IValidator<AppUserListDto>, AppUserLDValidator>();
+            services.AddSingleton<IValidator<AppUserUpdateDto>, AppUserUDValidator>();
 
 
         }

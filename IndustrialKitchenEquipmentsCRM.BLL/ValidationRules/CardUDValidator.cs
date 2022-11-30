@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IndustrialKitchenEquipmentsCRM.DTOs.User;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
 {
-    public class AppUserLDValidator: AbstractValidator<AppUserListDto>
+    public class CardUDValidator: AbstractValidator<CardUpdateDto>
     {
-        public AppUserLDValidator()
+        public CardUDValidator()
         {
-            
+
         }
     }
 }

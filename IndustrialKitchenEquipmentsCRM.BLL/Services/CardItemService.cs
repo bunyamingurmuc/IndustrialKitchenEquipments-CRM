@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
-    public class CardItemService:Service<CardItemCreateDto, CardItemListDto, CardItem>,ICardItemService
+    public class CardItemService:Service<CardItemCreateDto, CardItemListDto,CardItemUpdateDto, CardItem>,ICardItemService
     {
         public readonly IMapper _mapper;
         public readonly IValidator<CardItemCreateDto> _createDtoValidator;
-        public readonly IValidator<CardItemListDto> _updateDtoValidator;
+        public readonly IValidator<CardItemUpdateDto> _updateDtoValidator;
         public readonly IUOW _uow;
         public readonly IndustrialKitchenEquipmentsContext _context;
 
-        public CardItemService(IMapper mapper, IValidator<CardItemCreateDto> createDtoValidator, IValidator<CardItemListDto> updateDtoValidator, IUOW uow, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, updateDtoValidator, uow)
+        public CardItemService(IMapper mapper, IValidator<CardItemCreateDto> createDtoValidator, IUOW uow, IValidator<CardItemUpdateDto> updateDtoValidator, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, uow, updateDtoValidator)
         {
             _mapper = mapper;
             _createDtoValidator = createDtoValidator;
@@ -28,7 +28,6 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             _uow = uow;
             _context = context;
         }
-
         public async Task<IResponse<List<CardItemListDto>>> GetAllWithR()
         {
             var CardItems = await _context.CardItems
@@ -43,8 +42,8 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
         public async Task<IResponse<CardItemListDto>> GetR(int id)
         {
             var CardItem = await _context.CardItems.Where(i=>i.Id==id)
-                .Include(x => x.Stock)
                 .Include(x => x.Card)
+                .Include(x => x.Stock)
                 .FirstOrDefaultAsync();
             var mapped = _mapper.Map<CardItemListDto>(CardItem);
             return new Response<CardItemListDto>(ResponseType.Success, mapped);

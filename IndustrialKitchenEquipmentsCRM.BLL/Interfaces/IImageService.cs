@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
 {
-    public interface IImageService:IService<ImageCreateDto,ImageListDto,Image>
+    public interface IImageService:IService<ImageCreateDto,ImageListDto,ImageUpdateDto,Image>
     {
         IResponse CreateImage(FileStream fileStream, IFormFile formFile);
         IResponse DeleteImage(string filePath);

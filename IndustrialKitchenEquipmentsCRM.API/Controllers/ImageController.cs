@@ -52,7 +52,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
 
         [HttpPut]
         [Route("/[controller]/[action]")]
-        public async Task<ActionResult> ImageUpdate(ImageListDto dto)
+        public async Task<ActionResult> ImageUpdate(ImageUpdateDto dto)
         {
             var response = await _imageService.UpdateAsync(dto);
             return this.ResponseStatusWithData(response);

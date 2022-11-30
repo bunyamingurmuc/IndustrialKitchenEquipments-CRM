@@ -11,7 +11,7 @@ using IndustrialKitchenEquipmentsCRM.Entities.Auth;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
 {
-    public interface IAppUserService:IService<AppUserCreateDto,AppUserListDto,AppUser>
+    public interface IAppUserService:IService<AppUserCreateDto,AppUserListDto, AppUserUpdateDto, AppUser>
     {
         public Task<IResponse<AppUserCreateDto>> CreateUser(CCreateAccountDto dto);
         Task<IResponse<List<AppUserListDto>>> GetAllWithR();

@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 using IndustrialKitchenEquipmentsCRM.DTOs;
+using IndustrialKitchenEquipmentsCRM.DTOs.Stock;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
 {
-    public class StockLDValidator:AbstractValidator<StockListDto>
+    public class StockUDValidator:AbstractValidator<StockUpdateDto>
     {
-        public StockLDValidator()
+        public StockUDValidator()
         {
 
         }

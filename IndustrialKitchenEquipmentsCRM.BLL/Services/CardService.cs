@@ -13,17 +13,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
-    public class CardService : Service<CardCreateDto, CardListDto, Card>, ICardService
+    public class CardService : Service<CardCreateDto, CardListDto,CardUpdateDto, Card>, ICardService
     {
         public readonly IMapper _mapper;
         public readonly IValidator<CardCreateDto> _createDtoValidator;
-        public readonly IValidator<CardListDto> _updateDtoValidator;
+        public readonly IValidator<CardUpdateDto> _updateDtoValidator;
         public readonly IUOW _uow;
         public readonly IndustrialKitchenEquipmentsContext _context;
         public readonly IStockService _stockService;
 
-
-        public CardService(IMapper mapper, IValidator<CardCreateDto> createDtoValidator, IValidator<CardListDto> updateDtoValidator, IUOW uow, IndustrialKitchenEquipmentsContext context, IStockService stockService) : base(mapper, createDtoValidator, updateDtoValidator, uow)
+        public CardService(IMapper mapper, IValidator<CardCreateDto> createDtoValidator, IUOW uow, IValidator<CardUpdateDto> updateDtoValidator, IndustrialKitchenEquipmentsContext context, IStockService stockService) : base(mapper, createDtoValidator, uow, updateDtoValidator)
         {
             _mapper = mapper;
             _createDtoValidator = createDtoValidator;

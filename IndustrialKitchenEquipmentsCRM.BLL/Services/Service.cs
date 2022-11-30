@@ -15,22 +15,23 @@ using IndustrialKitchenEquipmentsCRM.BLL.Extensions;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
-    public class Service<CreateDto, ListDto, T> : IService<CreateDto, ListDto, T>
+    public class Service<CreateDto, ListDto, UpdateDto, T> : IService<CreateDto, ListDto,UpdateDto, T>
      where CreateDto : ICreateDto, new()
      where ListDto : IListDto, new()
+     where UpdateDto:IUpdateDto,new ()
      where T : BaseEntity
     {
         private readonly IMapper _mapper;
         private readonly IValidator<CreateDto> _createDtoValidator;
-        private readonly IValidator<ListDto> _updateDtoValidator;
+        private readonly IValidator<UpdateDto> _updateDtoValidator;
         private readonly IUOW _uow;
 
-        public Service(IMapper mapper, IValidator<CreateDto> createDtoValidator, IValidator<ListDto> updateDtoValidator, IUOW uow)
+        public Service(IMapper mapper, IValidator<CreateDto> createDtoValidator, IUOW uow, IValidator<UpdateDto> updateDtoValidator)
         {
             _mapper = mapper;
             _createDtoValidator = createDtoValidator;
-            _updateDtoValidator = updateDtoValidator;
             _uow = uow;
+            _updateDtoValidator = updateDtoValidator;
         }
 
         public async Task<IResponse<List<ListDto>>> GetAllAsync()
@@ -68,7 +69,7 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 
         }
 
-        public async Task<IResponse<ListDto>> UpdateAsync(ListDto dto)
+        public async Task<IResponse<UpdateDto>> UpdateAsync(UpdateDto dto)
         {
             var result = _updateDtoValidator.Validate(dto);
             if (result.IsValid)
@@ -76,15 +77,15 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
                 var unchangedData = await _uow.GetRepository<T>().FindAsync(dto.Id);
                 if (unchangedData==null)
                 {
-                    return new Response<ListDto>(ResponseType.NotFound, "data bulunamadı");
+                    return new Response<UpdateDto>(ResponseType.NotFound, "data bulunamadı");
                 }
                 var entity = _mapper.Map<T>(dto);
                 _uow.GetRepository<T>().Update(entity, unchangedData);
 
                 await _uow.SaveChangesAsycn();
-                return new Response<ListDto>(ResponseType.Success, dto);
+                return new Response<UpdateDto>(ResponseType.Success, dto);
             }
-            return new Response<ListDto>(dto, result.ConvertToCustomValidationError());
+            return new Response<UpdateDto>(dto, result.ConvertToCustomValidationError());
         }
 
         public async Task<IResponse> RemoveAsync(int id)

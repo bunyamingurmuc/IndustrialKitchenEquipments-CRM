@@ -1,16 +1,16 @@
-﻿using System;
+﻿using FluentValidation;
+using IndustrialKitchenEquipmentsCRM.DTOs.Card;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FluentValidation;
-using IndustrialKitchenEquipmentsCRM.DTOs.Image;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.ValidationRules
 {
-    public class ImageLDValidator:AbstractValidator<ImageListDto>
+    public class CardItemUDValidator:AbstractValidator<CardItemUpdateDto>
     {
-        public ImageLDValidator()
+        public CardItemUDValidator()
         {
         }
     }

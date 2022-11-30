@@ -7,20 +7,21 @@ using IndustrialKitchenEquipmentsCRM.DAL.UOW;
 using IndustrialKitchenEquipmentsCRM.DTOs;
 using IndustrialKitchenEquipmentsCRM.DTOs.Image;
 using IndustrialKitchenEquipmentsCRM.DTOs.Interfaces;
+using IndustrialKitchenEquipmentsCRM.DTOs.Stock;
 using IndustrialKitchenEquipmentsCRM.Entities.Stock;
 using Microsoft.EntityFrameworkCore;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Services
 {
-    public class StockService:Service<StockCreateDto,StockListDto,Stock>,IStockService
+    public class StockService:Service<StockCreateDto,StockListDto,StockUpdateDto,Stock>,IStockService
     {
         public readonly IMapper _mapper;
         public readonly IValidator<StockCreateDto> _createDtoValidator;
-        public readonly IValidator<StockListDto> _updateDtoValidator;
+        public readonly IValidator<StockUpdateDto> _updateDtoValidator;
         public readonly IUOW _uow;
         public readonly IndustrialKitchenEquipmentsContext _context;
 
-        public StockService(IMapper mapper, IValidator<StockCreateDto> createDtoValidator, IValidator<StockListDto> updateDtoValidator, IUOW uow, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, updateDtoValidator, uow)
+        public StockService(IMapper mapper, IValidator<StockCreateDto> createDtoValidator, IUOW uow, IValidator<StockUpdateDto> updateDtoValidator, IndustrialKitchenEquipmentsContext context) : base(mapper, createDtoValidator, uow, updateDtoValidator)
         {
             _mapper = mapper;
             _createDtoValidator = createDtoValidator;
@@ -28,7 +29,6 @@ namespace IndustrialKitchenEquipmentsCRM.BLL.Services
             _uow = uow;
             _context = context;
         }
-
 
 
         public async Task<IResponse<List<StockListDto>>> GetAllStocksWithR()

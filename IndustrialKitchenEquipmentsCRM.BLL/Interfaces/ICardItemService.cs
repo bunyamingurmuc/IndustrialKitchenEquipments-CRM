@@ -10,7 +10,7 @@ using IndustrialKitchenEquipmentsCRM.Entities.Card;
 
 namespace IndustrialKitchenEquipmentsCRM.BLL.Interfaces
 {
-    public interface ICardItemService:IService<CardItemCreateDto,CardItemListDto, CardItem>
+    public interface ICardItemService:IService<CardItemCreateDto,CardItemListDto,CardItemUpdateDto, CardItem>
     {
         Task<IResponse<List<CardItemListDto>>> GetAllWithR();
         Task<IResponse<CardItemListDto>> GetR(int id);

@@ -3,6 +3,7 @@ using IndustrialKitchenEquipmentsCRM.BLL.Interfaces;
 using IndustrialKitchenEquipmentsCRM.BLL.Services;
 using IndustrialKitchenEquipmentsCRM.DTOs;
 using IndustrialKitchenEquipmentsCRM.DTOs.Category;
+using IndustrialKitchenEquipmentsCRM.DTOs.Stock;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -61,7 +62,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         }
         [HttpPut]
         [Route("/[controller]/[action]")]
-        public async Task<ActionResult> StockUpdate(StockListDto dto)
+        public async Task<ActionResult> StockUpdate(StockUpdateDto dto)
         {
             var response = await _stockService.UpdateAsync(dto);
             return this.ResponseStatusWithData(response);

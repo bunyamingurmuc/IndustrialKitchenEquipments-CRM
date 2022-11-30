@@ -50,7 +50,7 @@ namespace IndustrialKitchenEquipmentsCRM.API.Controllers
         }
         [HttpPut]
         [Route("/[controller]/[action]")]
-        public async Task<ActionResult> CardItemUpdate(CardItemListDto dto)
+        public async Task<ActionResult> CardItemUpdate(CardItemUpdateDto dto)
         {
             var response = await _cardItemService.UpdateAsync(dto);
             return this.ResponseStatusWithData(response);
